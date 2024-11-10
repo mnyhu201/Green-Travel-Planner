@@ -16,9 +16,11 @@ const RegisterPage = () => {
 
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
     city: '',
     weight: '',
     height: '',
+    password: '',
     interest: []
   });
 
@@ -73,6 +75,30 @@ const RegisterPage = () => {
         </div>
 
         <div className="form-group">
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
           <label htmlFor="city">City:</label>
           <input
             type="text"
@@ -85,9 +111,9 @@ const RegisterPage = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="weight">Weight (optional):</label>
+          <label htmlFor="weight">Weight in lbs (optional, for calculating calories):</label>
           <input
-            type="text"
+            type="number"
             id="weight"
             name="weight"
             value={formData.weight}
@@ -96,9 +122,9 @@ const RegisterPage = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="height">Height (optional):</label>
+          <label htmlFor="height">Height in inches (optional, for calculating calories):</label>
           <input
-            type="text"
+            type="number"
             id="height"
             name="height"
             value={formData.height}
