@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import './RegisterPage.css';
 import Multiselect from 'multiselect-react-dropdown';
 import { auth, createUserWithEmailAndPassword } from '../firebaseConfig';
+import './RegisterPage.css'; // Import the CSS file
 
 const RegisterPage = () => {
   const interestList = [
@@ -12,7 +12,7 @@ const RegisterPage = () => {
     { name: 'Eco-Travel', id: 3 },
     { name: 'Adventure', id: 4 },
     { name: 'Cultural Exploration', id: 5 },
-    { name: 'Wellness Retreats', id: 6 }
+    { name: 'Wellness Retreats', id: 6 },
   ];
 
   const [formData, setFormData] = useState({
@@ -22,7 +22,7 @@ const RegisterPage = () => {
     weight: '',
     height: '',
     password: '',
-    interest: []
+    interest: [],
   });
 
   const handleChange = (e) => {
@@ -34,7 +34,6 @@ const RegisterPage = () => {
     setFormData({ ...formData, interest: selectedList });
   };
 
-  const DESTINATION = "";
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.interest.length === 0) {
@@ -42,23 +41,7 @@ const RegisterPage = () => {
       return;
     }
     try {
-
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        formData.email,
-        formData.password
-      );
-      // // Simulate saving formData to userProfile.json
-      // const response = await fetch('/userProfile.json', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(formData),
-      // });
-      // if (!response.ok) {
-      //   throw new Error('Failed to save user profile data');
-      // }
+      await createUserWithEmailAndPassword(auth, formData.email, formData.password);
       console.log('Form submitted:', formData);
       window.location.href = '/registered';
     } catch (error) {
@@ -69,101 +52,122 @@ const RegisterPage = () => {
       }
     }
     localStorage.removeItem('formData');
-    // window.location.href = '/registered';
-    // Handle form submission logic here
-    console.log(formData);
   };
 
   return (
-    <div className="register-container">
-      <h2>Register an Account</h2>
-      <form onSubmit={handleSubmit} className="register-form">
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
+    <div className="register-page">
+      <div className="register-container">
+        <h2 className="register-title">Register an Account</h2>
+        <form onSubmit={handleSubmit} className="register-form">
+          <div className="form-group">
+            <label htmlFor="name" className="form-label">
+              Name:
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              className="form-input"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">
+              Email:
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="form-input"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">
+              Password:
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="form-input"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="city">City:</label>
-          <input
-            type="text"
-            id="city"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="city" className="form-label">
+              City:
+            </label>
+            <input
+              type="text"
+              id="city"
+              name="city"
+              className="form-input"
+              value={formData.city}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="weight">Weight in lbs (optional, for calculating calories):</label>
-          <input
-            type="number"
-            id="weight"
-            name="weight"
-            value={formData.weight}
-            onChange={handleChange}
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="weight" className="form-label">
+              Weight in lbs (optional, for calculating calories):
+            </label>
+            <input
+              type="number"
+              id="weight"
+              name="weight"
+              className="form-input"
+              value={formData.weight}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="height">Height in inches (optional, for calculating calories):</label>
-          <input
-            type="number"
-            id="height"
-            name="height"
-            value={formData.height}
-            onChange={handleChange}
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="height" className="form-label">
+              Height in inches (optional, for calculating calories):
+            </label>
+            <input
+              type="number"
+              id="height"
+              name="height"
+              className="form-input"
+              value={formData.height}
+              onChange={handleChange}
+            />
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="interest">Interests:</label>
-          <Multiselect
-            options={interestList} // Options to display in the dropdown
-            selectedValues={formData.interest} // Preselected value to persist in dropdown
-            onSelect={handleMultiSelectChange} // Function will trigger on select event
-            onRemove={handleMultiSelectChange} // Function will trigger on remove event
-            displayValue="name" // Property name to display in the dropdown options
-          />
-        </div>
+          <div className="form-group">
+            <label htmlFor="interest" className="form-label">
+              Interests:
+            </label>
+            <Multiselect
+              options={interestList}
+              selectedValues={formData.interest}
+              onSelect={handleMultiSelectChange}
+              onRemove={handleMultiSelectChange}
+              displayValue="name"
+              className="form-multiselect"
+            />
+          </div>
 
-        <button type="submit">Register</button>
-      </form>
+          <button type="submit" className="register-button">
+            Register
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
 
 export default RegisterPage;
-

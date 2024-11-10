@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 
 const calorieRoutes = require('./routes/calorieRoutes');
 const weatherRoutes = require('./routes/weatherRoutes');
-const stepsRoutes = require('./routes/stepsRoutes');
+// const stepsRoutes = require('./routes/stepsRoutes');
 
 const app = express();
 
@@ -144,11 +144,5 @@ app.post('/register', async (req, res) => {
 
 
 const User = mongoose.model('User', userSchema);  // Create User model
-
-
-const PORT = 3001;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
 
 module.exports = app;
