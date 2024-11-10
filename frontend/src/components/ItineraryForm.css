@@ -1,0 +1,88 @@
+/* Existing styles for .form-container, .calculate-button, etc. */
+
+.form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .form-container input[type="text"],
+  .form-container select {
+    flex: 1;
+    min-width: 150px;
+    max-width: 300px;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-container select {
+    max-width: 150px;
+  }
+  
+  .form-container input[type="text"]:focus,
+  .form-container select:focus {
+    outline: none;
+    border-color: #2a9d8f;
+    box-shadow: 0 0 5px rgba(42, 157, 143, 0.5);
+  }
+  
+  .calculate-button {
+    background-color: #2a9d8f;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .calculate-button:hover {
+    background-color: #21867a;
+  }
+  
+  /* New styles for content layout */
+  .content-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 20px;
+    gap: 20px; /* Optional: space between map and recommendations */
+  }
+  
+  .map-container,
+  .recommendations {
+    flex: 1;
+    height: 500px;
+  }
+  
+  .map-container {
+    /* Optional: additional styles for the map */
+  }
+  
+  .recommendations {
+    padding: 20px;
+    background-color: #f0f0f0;
+    overflow-y: auto; /* Enables scrolling if content overflows */
+    border-radius: 8px; /* Matches form container styling */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .content-container {
+      display: block;
+    }
+  
+    .map-container,
+    .recommendations {
+      width: 100%;
+      height: 300px;
+    }
+  }
+  
