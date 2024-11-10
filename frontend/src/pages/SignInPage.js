@@ -27,6 +27,8 @@ const SignInPage = () => {
             // After successful login, you can get the ID Token for backend verification
             const idToken = await userCredential.user.getIdToken();
             console.log('ID Token:', idToken);
+
+            localStorage.setItem('idToken', idToken);
       
             setIdToken(idToken);
             // Send ID Token to the backend (optional, if you want to protect server-side routes)
