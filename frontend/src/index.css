@@ -37,9 +37,6 @@ nav ul li a {
   transition: background-color 0.3s;
 }
 
-nav ul li a:hover {
-  background-color: #264653; /* Darker shade for hover */
-}
 
 /* Main content area */
 main {
@@ -77,9 +74,7 @@ form button {
   transition: background-color 0.3s;
 }
 
-form button:hover {
-  background-color: #264653;
-}
+
 
 /* Page header styling */
 h1, h2 {
