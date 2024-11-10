@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './ActivityDisplay.css';
 
-const ActivityDisplay = ({ phone, imageLinks, name, hours, rating, address, description }) => {
+const ActivityDisplay = ({ phone, imageLinks, name, hours, rating, address, description, routeInfo }) => {
+
+  console.log("recieved route info: ");
+  console.log({routeInfo});
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleNextImage = () => {
@@ -13,6 +18,19 @@ const ActivityDisplay = ({ phone, imageLinks, name, hours, rating, address, desc
       prevIndex === 0 ? imageLinks.length - 1 : prevIndex - 1
     );
   };
+
+  const generateQRCode = async () => {
+
+    const response = await axios.post('http://localhost:4000/checkout/generate-route-qr', {
+      start_location:routeInfo.origin,
+      stop:address,
+      end_location:routeInfo.destination
+    });
+    
+    console.log("sent");
+    console.log(response);
+
+  }
 
   return (
     <div className="activity-display-container">
@@ -26,6 +44,7 @@ const ActivityDisplay = ({ phone, imageLinks, name, hours, rating, address, desc
         </div>
         <div className="activity-right">
             <h3 className="activity-name">{name}</h3>
+            <button onClick={generateQRCode}>Go</button>
             <p className="activity-hours"><strong>Hours: </strong>{hours}</p>
             <p className="activity-rating"><strong>Rating: </strong>{rating}</p>
             <p className="activity-address"><strong>Address: </strong>{address}</p>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ActivityDisplay from './ActivityDisplay';
 import './ActivityCarousel.css';
 
-const ActivityCarousel = ({ activities }) => {
+const ActivityCarousel = ({ activities, routeInfo }) => {
   const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
 
   const handleNextActivity = () => {
@@ -17,7 +17,7 @@ const ActivityCarousel = ({ activities }) => {
 
   return (
     <div className="activity-carousel-container">
-        <ActivityDisplay {...activities[currentActivityIndex]} />
+        <ActivityDisplay {...activities[currentActivityIndex]} routeInfo={routeInfo} />
       <button className="activity-carousel-button left-button" onClick={handlePreviousActivity}>&lt;</button>
       <button className="activity-carousel-button right-button" onClick={handleNextActivity}>&gt;</button>
     </div>

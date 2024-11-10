@@ -76,6 +76,9 @@ function ItineraryForm() {
   const originRef = useRef();
   const destinationRef = useRef();
 
+  // state variable for route info
+  const [routeInfo, setRouteInfo] = useState({});
+
   // Load Google Maps API
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: API_KEY,
@@ -155,6 +158,7 @@ function ItineraryForm() {
   // Send route information to the backend
   const sendRouteInfoToBackend = (routeInfo) => {
     console.log('Route Info:', routeInfo);
+    setRouteInfo(routeInfo);
 
     fetch('http://localhost:4000/carbon/calculate-carbon-footprint', {
       method: 'POST',
@@ -174,6 +178,9 @@ function ItineraryForm() {
 
         setDisplayMessage('');
         setTravelModeDisplay(travelMode);
+        
+
+        // set the credits
         if (data.totalCalories == 0) {
           setCredit(-1 * data.totalTime);
         }
@@ -277,7 +284,7 @@ function ItineraryForm() {
                 method={travelModeDisplay}
                 credits={credit}
               />
-              <ActivityCarousel activities={activities} />
+              <ActivityCarousel activities={activities} routeInfo={routeInfo}/>
             </>
           )}
         </div>
