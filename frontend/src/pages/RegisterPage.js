@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Multiselect from 'multiselect-react-dropdown';
 import { auth, createUserWithEmailAndPassword } from '../firebaseConfig';
 import './RegisterPage.css'; // Import the CSS file
+import axios from 'axios';
 
 const RegisterPage = () => {
   const interestList = [
@@ -42,6 +43,23 @@ const RegisterPage = () => {
     }
     try {
       await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      try{
+        const {name, email, city, weight, height, interests} = formData;
+        const inputData = {
+          "name": name,
+          "email": email,
+          "height": 165,
+          "weight": 60,
+          "activities": interests,
+          "ecoPoints": 0,
+          "savedRoutes": [],
+          "completedRoutes": []
+        }
+        const response = await axios.post('http://localhost:4000/register', formData);
+      } catch (error) {
+        console.error('Error during registration:', error.response ? error.response.data : error.message);
+      }
+      
       console.log('Form submitted:', formData);
       window.location.href = '/registered';
     } catch (error) {
@@ -52,6 +70,7 @@ const RegisterPage = () => {
       }
     }
     localStorage.removeItem('formData');
+
   };
 
   return (
