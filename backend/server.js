@@ -1,19 +1,7 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const PORT = 4000;
-
-const app = express();
-
-// Middleware to parse JSON data
-app.use(express.json());
-
+// server.js
+const app = require('./app');
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
-
-// Home route
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  console.log(`Server running on port ${PORT}`);
 });
