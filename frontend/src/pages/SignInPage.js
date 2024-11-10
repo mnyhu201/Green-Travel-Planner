@@ -29,6 +29,7 @@ const SignInPage = () => {
             console.log('ID Token:', idToken);
 
             localStorage.setItem('idToken', idToken);
+            localStorage.setItem('email', email);
       
             setIdToken(idToken);
             // Send ID Token to the backend (optional, if you want to protect server-side routes)

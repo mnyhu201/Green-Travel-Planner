@@ -10,6 +10,8 @@ const ItineraryPage = () => {
       // Check if the token exists in local storage
       const token = localStorage.getItem('idToken');
       console.log('idToken: ', token)
+    //   const email = localStorage.getItem('email');
+    //   console.log('User email:', email); 
       if (!token) {
         // If no token is found, redirect to the login page
         navigate('/signin');
