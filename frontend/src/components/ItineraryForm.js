@@ -1,31 +1,155 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import {
+  GoogleMap,
+  Autocomplete,
+  DirectionsRenderer,
+  useJsApiLoader,
+} from '@react-google-maps/api';
+import './ItineraryForm.css';
 
-const ItineraryForm = () => {
-  const [formData, setFormData] = useState({
-    destination: '',
-    budget: '',
-    travelType: 'eco-friendly',
+const API_KEY = 'AIzaSyB2-KS_YHH2UJQPsFiRmXp2i5klSKI2La0' // Replace with your API key
+const center = {
+  lat: 34.05, // Default to LA
+  lng: -118.24,
+};
+
+function ItineraryForm() {
+  const [origin, setOrigin] = useState('');
+  const [destination, setDestination] = useState('');
+  const [directions, setDirections] = useState(null);
+  const [travelMode, setTravelMode] = useState('DRIVING');
+  const originRef = useRef();
+  const destinationRef = useRef();
+
+  // Use the useJsApiLoader hook
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: API_KEY,
+    libraries: ['places'],
   });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  if (loadError) {
+    return <div>Error loading maps</div>;
+  }
+
+  if (!isLoaded) {
+    return <div>Loading Maps...</div>;
+  }
+
+  const calculateRoute = () => {
+    if (origin && destination) {
+      const directionsService = new window.google.maps.DirectionsService();
+      directionsService.route(
+        {
+          origin,
+          destination,
+          travelMode: window.google.maps.TravelMode[travelMode],
+        },
+        (result, status) => {
+          if (status === window.google.maps.DirectionsStatus.OK) {
+            setDirections(result);
+            sendRouteInfoToBackend(result);
+          } else {
+            console.error(`Error fetching directions ${result}`);
+          }
+        }
+      );
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted', formData);
-    // Logic for generating itineraries goes here
+  const sendRouteInfoToBackend = (result) => {
+    const route = result.routes[0].legs[0];
+    const routeInfo = {
+      origin: route.start_address,
+      destination: route.end_address,
+      distance: route.distance.text,
+      duration: route.duration.text,
+      steps: route.steps.map((step) => ({
+        travel_mode: step.travel_mode,
+        instruction: step.instructions,
+        distance: step.distance.text,
+        duration: step.duration.text,
+        transit_details: step.transit
+          ? {
+              line_name: step.transit.line.name,
+              line_short_name: step.transit.line.short_name,
+              vehicle_type: step.transit.line.vehicle.type,
+              departure_stop: step.transit.departure_stop.name,
+              arrival_stop: step.transit.arrival_stop.name,
+              num_stops: step.transit.num_stops,
+            }
+          : null,
+      })),
+    };
+
+    console.log(routeInfo);
+
+    fetch('http://localhost:3000/upload-route', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(routeInfo),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Successfully sent route data to the backend:', data);
+      })
+      .catch((error) => {
+        console.error('Error sending route data to backend:', error);
+      });
+  };
+
+  const handlePlaceSelect = (autocomplete, setFunction) => {
+    const place = autocomplete.getPlace();
+    if (place.formatted_address) {
+      setFunction(place.formatted_address);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Destination:</label>
-      <input type="text" name="destination" onChange={handleChange} />
-      <label>Budget:</label>
-      <input type="number" name="budget" onChange={handleChange} />
-      <button type="submit">Create Itinerary</button>
-    </form>
+    <div>
+      <div className="form-container">
+        <Autocomplete
+          onLoad={(autocomplete) => (originRef.current = autocomplete)}
+          onPlaceChanged={() => handlePlaceSelect(originRef.current, setOrigin)}
+        >
+          <input type="text" placeholder="Start Location" />
+        </Autocomplete>
+
+        <Autocomplete
+          onLoad={(autocomplete) => (destinationRef.current = autocomplete)}
+          onPlaceChanged={() => handlePlaceSelect(destinationRef.current, setDestination)}
+        >
+          <input type="text" placeholder="Destination" />
+        </Autocomplete>
+
+        <select value={travelMode} onChange={(e) => setTravelMode(e.target.value)}>
+          <option value="DRIVING">Driving</option>
+          <option value="WALKING">Walking</option>
+          <option value="BICYCLING">Biking</option>
+          <option value="TRANSIT">Transit</option>
+        </select>
+
+        <button className="calculate-button" onClick={calculateRoute}>
+          Calculate Route
+        </button>
+      </div>
+
+      <div className="content-container">
+        <div className="map-container">
+          <GoogleMap
+            mapContainerStyle={{ width: '100%', height: '100%' }}
+            center={center}
+            zoom={12}
+          >
+            {directions && <DirectionsRenderer directions={directions} />}
+          </GoogleMap>
+        </div>
+        <div className="recommendations">
+          The Route Recommendations will Appear here.
+        </div>
+      </div>
+    </div>
   );
-};
+}
 
 export default ItineraryForm;
+
