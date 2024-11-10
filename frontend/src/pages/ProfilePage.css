@@ -1,0 +1,49 @@
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .profile-heading {
+    text-align: center;
+    margin-bottom: 16px;
+    font-size: 1.8rem;
+    color: #2a9d8f;
+  }
+  
+  .profile-info {
+    margin-bottom: 24px;
+  }
+  
+  .profile-info p {
+    margin: 8px 0;
+    font-size: 1rem;
+  }
+  
+  .routes-container {
+    margin-top: 16px;
+  }
+  
+  .routes-container h3 {
+    margin-top: 16px;
+    color: #264653;
+  }
+  
+  .routes-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .routes-container li {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 8px;
+  }
+  
+  .routes-container li p {
+    margin: 4px 0;
+  }
+  

@@ -48,8 +48,8 @@ const RegisterPage = () => {
         const inputData = {
           "name": name,
           "email": email,
-          "height": 165,
-          "weight": 60,
+          "height": height,
+          "weight": weight,
           "activities": interests,
           "ecoPoints": 0,
           "savedRoutes": [],

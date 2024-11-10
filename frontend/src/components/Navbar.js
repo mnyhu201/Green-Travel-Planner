@@ -54,6 +54,7 @@ const Navbar = () => {
         <li><Link to="/itinerary">Itinerary</Link></li>
         <li><Link to="/tips">Travel Tips</Link></li>
         <li><Link to="/accommodations">Eco Accommodations</Link></li>
+        <li><Link to="/profile">Eco Accommodations</Link></li>
         <li 
           className="dropdown"
           onMouseEnter={toggleDropdown}
