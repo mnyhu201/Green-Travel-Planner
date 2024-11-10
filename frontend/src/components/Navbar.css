@@ -1,0 +1,121 @@
+/* Navbar.css */
+nav {
+    background-color: #2a9d8f;
+    color: #fff;
+    padding: 1rem;
+  }
+  
+  ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    margin: 0;
+    padding: 0;
+  }
+  
+  li {
+    position: relative;
+  }
+  
+  a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  a:hover {
+    background-color: #264653;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    width: 200px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .dropdown:hover .dropdown-menu {
+    display: flex;
+  }
+  
+  .dropdown-menu li {
+    padding: 10px 0;
+    width: 100%;
+  }
+  
+  .dropdown-menu li a {
+    color: #333;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    text-align: center;
+  }
+  
+  .dropdown-menu li a:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Prevent dropdown from going off the screen */
+  .dropdown-menu {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  /* Register.css */
+  .register-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  input, select {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  button {
+    padding: 0.75rem;
+    background-color: #2a9d8f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #264653;
+  }
+  
