@@ -14,6 +14,8 @@ nav {
   background-color: #2a9d8f; /* Greenish blue to reflect eco-friendliness */
   color: #fff;
   padding: 1rem;
+  top:0px;
+  position: sticky;
 }
 
 nav ul {
@@ -102,7 +104,7 @@ footer p {
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   nav ul {
     flex-direction: column;
     align-items: center;

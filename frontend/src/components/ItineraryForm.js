@@ -7,7 +7,8 @@ import {
 } from '@react-google-maps/api';
 import './ItineraryForm.css';
 import RouteDisplay from './RouteDisplay';
-
+import ActivityDisplay from './ActivityDisplay';
+import ActivityCarousel from './ActivityCarousel';
 
 const API_KEY = 'AIzaSyB2-KS_YHH2UJQPsFiRmXp2i5klSKI2La0' // Replace with your API key
 const center = {
@@ -23,7 +24,10 @@ function ItineraryForm() {
   const originRef = useRef();
   const destinationRef = useRef();
 
-  // Use the useJsApiLoader hook
+  const [routeDisplay, setRouteDisplay] = useState({});
+  const [displayMessage, setDisplayMessage] = useState("The Route Recommendations will Appear here.");
+  const [travelModeDisplay, setTravelModeDisplay] = useState('');
+
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: API_KEY,
     libraries: ['places'],
@@ -70,6 +74,14 @@ function ItineraryForm() {
         instruction: step.instructions,
         distance: step.distance.text,
         duration: step.duration.text,
+        start_location: {
+          lat: step.start_location.lat(),
+          lng: step.start_location.lng(),
+        },
+        end_location: {
+          lat: step.end_location.lat(),
+          lng: step.end_location.lng(),
+        },
         transit_details: step.transit
           ? {
               line_name: step.transit.line.name,
@@ -85,7 +97,7 @@ function ItineraryForm() {
 
     console.log(routeInfo);
 
-    fetch('http://localhost:3000/carbon/calculate-carbon-footprint', {
+    fetch('http://localhost:4000/carbon/calculate-carbon-footprint', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(routeInfo),
@@ -93,6 +105,17 @@ function ItineraryForm() {
       .then((response) => response.json())
       .then((data) => {
         console.log('Successfully sent route data to the backend:', data);
+
+        setRouteDisplay({
+          footPrintColor: data.footPrintColor,
+          totalCalories: data.totalCalories,
+          totalDistance: data.totalDistance,
+          totalEmissions: data.totalEmissions,
+          totalTime: data.totalTime,
+        });
+
+        setDisplayMessage("");
+        setTravelModeDisplay(travelMode);
       })
       .catch((error) => {
         console.error('Error sending route data to backend:', error);
@@ -105,6 +128,46 @@ function ItineraryForm() {
       setFunction(place.formatted_address);
     }
   };
+
+  const activities = [
+    {
+      phone: '123-456-7890',
+      imageLinks: [
+        'https://via.placeholder.com/150',
+        'https://via.placeholder.com/200',
+        'https://via.placeholder.com/250',
+      ],
+      name: 'Adventure Park',
+      hours: '9:00 AM - 8:00 PM',
+      rating: '4.5/5',
+      address: '123 Adventure Lane, Fun City, FC 12345',
+      description: 'A fun place to enjoy outdoor activities with your family and friends!',
+    },
+    {
+      phone: '987-654-3210',
+      imageLinks: [
+        'https://via.placeholder.com/300',
+        'https://via.placeholder.com/350',
+      ],
+      name: 'Cultural Museum',
+      hours: '10:00 AM - 5:00 PM',
+      rating: '4.8/5',
+      address: '456 History Rd, Culture Town, CT 45678',
+      description: 'Explore the rich cultural heritage of our community at this wonderful museum!',
+    },
+    {
+      phone: '111-222-3333',
+      imageLinks: [
+        'https://via.placeholder.com/400',
+        'https://via.placeholder.com/450',
+      ],
+      name: 'Nature Walk',
+      hours: '6:00 AM - 6:00 PM',
+      rating: '4.7/5',
+      address: '789 Greenway Blvd, Nature City, NC 78901',
+      description: 'Enjoy a serene walk through beautiful nature trails and experience the beauty of local flora and fauna.',
+    },
+  ];
 
   return (
     <div>
@@ -146,15 +209,20 @@ function ItineraryForm() {
           </GoogleMap>
         </div>
         <div className="recommendations">
-          The Route Recommendations will Appear here.
-          <RouteDisplay distance={10} time={100} calories={120} colors={"#F23"} method={"bus"}/>
+          {displayMessage}
+          {displayMessage === "" && <RouteDisplay distance={routeDisplay.totalDistance} time={routeDisplay.totalTime} calories={routeDisplay.totalCalories} colors={routeDisplay.footPrintColor} carbon={routeDisplay.totalEmissions} method={travelModeDisplay} />}
+
+          
+          <ActivityCarousel activities={activities} />
+          
+
         </div>
+        
       </div>
+      
+        
     </div>
   );
-  // distance, time, calories, carbon, type
 }
 
-
 export default ItineraryForm;
-
