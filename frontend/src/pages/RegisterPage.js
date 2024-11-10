@@ -50,10 +50,11 @@ const RegisterPage = () => {
           "email": email,
           "height": height,
           "weight": weight,
-          "activities": interests,
+          "interests": interests,
           "ecoPoints": 0,
           "savedRoutes": [],
-          "completedRoutes": []
+          "completedRoutes": [],
+          "activities": []
         }
         const response = await axios.post('http://localhost:4000/register', formData);
       } catch (error) {

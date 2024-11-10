@@ -63,6 +63,28 @@ const routeSchema = new mongoose.Schema({
     }
 });
 
+const activitySchema = {
+    phone: {
+        type: String,
+        required: true
+    }, imageLinks:[{
+        type: String, 
+        required: true
+    }], name: {
+        type: String, 
+        required: true
+    }, hours:{
+        type: String,
+        required: true
+    }, rating: {
+        type: String,
+        required: true
+    }, address: {
+        type: String,
+        required: true
+    }
+}
+
 // Define the User Schema
 const userSchema = new mongoose.Schema({
     name: {
@@ -83,17 +105,81 @@ const userSchema = new mongoose.Schema({
         type: Number,
         required: false // Optional field
     },
-    activities: {
-        type: [String],
-        required: false // Optional array of activities
-    },
+    activities: [activitySchema],
     ecoPoints: {
         type: Number,
         default: 0 // Start ecoPoints at 0
     },
+    interests:{
+        type: [String],
+        required: true
+    },
     savedRoutes: [routeSchema], // Array of Route schema
     completedRoutes: [routeSchema] // Array of Route schema
 });
+
+
+app.put('/user/:email/add-activity', async (req, res) => {
+    const { email } = req.params;
+    const { phone, imageLinks, name, hours, rating, address } = req.body;
+
+    try {
+        // Find the user by email
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        
+        // Create a new activity object
+        const activity = {
+            phone,
+            imageLinks: Array.isArray(imageLinks) ? imageLinks : [imageLinks], // Ensure it's an array
+            name,
+            hours,
+            rating,
+            address
+        };
+        
+        // Add the activity to the user's activities list
+        user.activities.push(activity);
+
+        // Save the updated user document
+        await user.save();
+
+        res.status(200).json({ message: 'Activity added successfully', user });
+    } catch (error) {
+        console.error('Error adding activity:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Remove an activity from the user's saved activities by matching name and address
+app.put('/user/:email/remove-activity', async (req, res) => {
+    const { email } = req.params;
+    const { name, address } = req.body;
+
+    try {
+        // Find the user by email
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Filter out the activity with the given name and address
+        user.activities = user.activities.filter(activity => 
+            activity.name !== name || activity.address !== address
+        );
+
+        // Save the updated user document
+        await user.save();
+
+        res.status(200).json({ message: `Activity removed successfully`, user });
+    } catch (error) {
+        console.error('Error removing activity:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 
 // Remove a specific route by matching all route parameters
 app.put('/user/:email/remove-trip', async (req, res) => {
