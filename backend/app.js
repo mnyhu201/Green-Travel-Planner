@@ -7,7 +7,7 @@ const calorieRoutes = require('./routes/calorieRoutes');
 const weatherRoutes = require('./routes/weatherRoutes');
 const stepsRoutes = require('./routes/stepsRoutes');
 const carbonRoutes = require('./routes/carbonRoutes');
-// const stepsRoutes = require('./routes/stepsRoutes');
+const qrCodeRoutes = require('./routes/qrCodeRoutes');
 
 const app = express();
 
@@ -27,6 +27,8 @@ app.use('/carbon', carbonRoutes);
 app.use('/activity-search', stepsRoutes);
 
 app.use('/carbon', carbonRoutes);
+
+app.use('/checkout', qrCodeRoutes);
 
 // MongoDB connection URI (replace with your own)
 const MONGO_URI = "mongodb+srv://xinyangxu2023:Xp12345@cluster1.nz97x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
