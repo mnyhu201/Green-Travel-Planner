@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-// import './Register.css';
 
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);

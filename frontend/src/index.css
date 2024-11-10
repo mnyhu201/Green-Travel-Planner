@@ -9,36 +9,9 @@ body {
     line-height: 1.6;
   }
   
-  /* Navbar styling */
-  nav {
-    background-color: #2a9d8f; /* Greenish blue to reflect eco-friendliness */
-    color: #fff;
-    padding: 1rem;
-  }
-  
-  nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: space-around;
-    margin: 0;
-    padding: 0;
-  }
-  
-  nav ul li {
-    display: inline;
-  }
-  
-  nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    transition: background-color 0.3s;
-  }
-  
-  nav ul li a:hover {
-    background-color: #264653; /* Darker shade for hover */
-  }
-  
+
+
+
   /* Main content area */
   main {
     padding: 2rem;

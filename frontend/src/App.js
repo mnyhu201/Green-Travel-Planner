@@ -6,6 +6,8 @@ import ItineraryPage from './pages/ItineraryPage';
 import TipsPage from './pages/TipsPage';
 import AccommodationPage from './pages/AccommodationPage';
 import RegisterPage from './pages/RegisterPage';
+import RegisterSubmitPage from './pages/RegisterSubmitPage';
+import SignInPage from './pages/SignInPage';
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
             <Route path="/tips" element={<TipsPage />} />
             <Route path="/accommodations" element={<AccommodationPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/registered" element={<RegisterSubmitPage />} />
+            <Route path="/signin" element={<SignInPage />} />
           </Routes>
     </>
       
