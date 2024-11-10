@@ -29,7 +29,7 @@ const Navbar = () => {
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, []);
+  });
   // useEffect(() => {
   //   // Check authentication on component mount
   //   checkAuthentication();
@@ -62,7 +62,7 @@ const Navbar = () => {
           <span>Accounts</span>
           {showDropdown && (
             <ul className="dropdown-menu">
-              {/* {!isAuthenticated ? (
+              {!isAuthenticated ? (
                 <>
                   <li><Link to="/signin">Sign In</Link></li>
                   <li><Link to="/register">Register</Link></li>
@@ -72,11 +72,11 @@ const Navbar = () => {
                   <li><Link to="/profile">Profile</Link></li>
                   <li onClick={handleSignOut}><Link to="#">Sign Out</Link></li>
                 </>
-              )} */}
-                <li><Link to="/signin">Sign In</Link></li>
+              )}
+                {/* <li><Link to="/signin">Sign In</Link></li>
                 <li><Link to="/register">Register</Link></li>
                 <li><Link to="/profile">Profile</Link></li>
-                <li onClick={handleSignOut}><Link to="#">Sign Out</Link></li>
+                <li onClick={handleSignOut}><Link to="#">Sign Out</Link></li> */}
             </ul>
           )}
         </li>
