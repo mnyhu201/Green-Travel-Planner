@@ -5,7 +5,6 @@ import HomePage from './pages/HomePage';
 import ItineraryPage from './pages/ItineraryPage';
 import TipsPage from './pages/TipsPage';
 import AccommodationPage from './pages/AccommodationPage';
-import RegisterPage from './pages/RegisterPage';  // Adjust the import to match your folder structure
 
 function App() {
   return (
@@ -16,9 +15,10 @@ function App() {
             <Route path="/itinerary" element={<ItineraryPage />} />
             <Route path="/tips" element={<TipsPage />} />
             <Route path="/accommodations" element={<AccommodationPage />} />
-            <Route path="/register" element={<RegisterPage />} />
           </Routes>
     </>
+      
+
   );
 }
 
