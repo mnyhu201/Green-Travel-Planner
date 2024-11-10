@@ -85,7 +85,7 @@ function ItineraryForm() {
 
     console.log(routeInfo);
 
-    fetch('http://localhost:3000/upload-route', {
+    fetch('http://localhost:3000/carbon/calculate-carbon-footprint', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(routeInfo),
