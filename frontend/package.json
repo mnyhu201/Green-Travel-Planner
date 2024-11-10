@@ -12,6 +12,7 @@
   "author": "Your Name",
   "license": "MIT",
   "dependencies": {
+    "@react-google-maps/api": "^2.20.3",
     "axios": "^1.5.0",
     "multiselect-react-dropdown": "^2.0.25",
     "react": "^18.2.0",
