@@ -21,6 +21,10 @@ const SignInPage = () => {
             console.log('Logged in as:', userCredential.user.email);
             const idToken = await userCredential.user.getIdToken();
             console.log('ID Token:', idToken);
+
+            localStorage.setItem('idToken', idToken);
+      
+
             setIdToken(idToken);
             navigate('/');
         } catch (error) {
