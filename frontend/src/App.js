@@ -19,7 +19,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/registered" element={<RegisterSubmitPage />} />
             <Route path="/signin" element={<SignInPage />} />
-            <Route path="/profile" element={<ProfilePage email={localStorage.getItem('email')} />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
     </>
       
