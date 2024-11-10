@@ -31,7 +31,7 @@ const RouteDisplay = ({ method, distance, calories, carbon, time, colors }) => {
           <FontAwesomeIcon 
             icon={faShoePrints} 
             className="route-icon" 
-            style={{ color: colors.iconColor || '#2a9d8f' }} 
+            style={{ color: colors || '#2a9d8f' }} 
           />
         </h2>
         <div className="route-buttons">
@@ -61,7 +61,7 @@ const RouteDisplay = ({ method, distance, calories, carbon, time, colors }) => {
         
         <div className="row">
           <span><strong>Calories Burned: </strong> {calories} kcal</span>
-          <span><strong>Carbon Emission Saved: </strong> {carbon} kg</span>
+          <span><strong>Carbon Emission: </strong> {carbon} kg</span>
         </div>
       </div>
     </div>

@@ -23,6 +23,14 @@ function ItineraryForm() {
   const originRef = useRef();
   const destinationRef = useRef();
 
+
+  // <RouteDisplay distance={10} time={100} calories={120} colors={"#F23"} method={"bus"}/>
+
+  // modify the route display
+  const [routeDisplay, setRouteDisplay] = useState({});
+  const [displayMessage, setDisplayMessage] = useState("The Route Recommendations will Appear here.");
+  const [travelModeDisplay, setTravelModeDisplay] = useState('');
+
   // Use the useJsApiLoader hook
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: API_KEY,
@@ -85,7 +93,7 @@ function ItineraryForm() {
 
     console.log(routeInfo);
 
-    fetch('http://localhost:3000/carbon/calculate-carbon-footprint', {
+    fetch('http://localhost:4000/carbon/calculate-carbon-footprint', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(routeInfo),
@@ -93,7 +101,22 @@ function ItineraryForm() {
       .then((response) => response.json())
       .then((data) => {
         console.log('Successfully sent route data to the backend:', data);
+
+        setRouteDisplay(
+          {
+            footPrintColor:data.footPrintColor,
+            totalCalories:data.totalCalories,
+            totalDistance:data.totalDistance,
+            totalEmissions:data.totalEmissions,
+            totalTime:data.totalTime
+          }
+        )
+
+        setDisplayMessage("");
+
+        setTravelModeDisplay(travelMode);
       })
+
       .catch((error) => {
         console.error('Error sending route data to backend:', error);
       });
@@ -146,8 +169,8 @@ function ItineraryForm() {
           </GoogleMap>
         </div>
         <div className="recommendations">
-          The Route Recommendations will Appear here.
-          <RouteDisplay distance={10} time={100} calories={120} colors={"#F23"} method={"bus"}/>
+          {displayMessage}
+          {displayMessage === "" && <RouteDisplay distance={routeDisplay.totalDistance} time={routeDisplay.totalTime} calories={routeDisplay.totalCalories} colors={routeDisplay.footPrintColor} carbon = {routeDisplay.totalEmissions} method={travelModeDisplay}/>}
         </div>
       </div>
     </div>
