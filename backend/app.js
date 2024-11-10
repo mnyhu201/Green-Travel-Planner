@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 
 const calorieRoutes = require('./routes/calorieRoutes');
 const weatherRoutes = require('./routes/weatherRoutes');
+const stepsRoutes = require('./routes/stepsRoutes');
 const carbonRoutes = require('./routes/carbonRoutes');
 // const stepsRoutes = require('./routes/stepsRoutes');
 
@@ -19,6 +20,12 @@ app.use(express.json());
 app.use('/calculate-calories', calorieRoutes);
 // get seven day weather forcast
 app.use('/weather', weatherRoutes);
+
+// calculate the carbon emissions
+app.use('/carbon', carbonRoutes);
+// find nearby activities
+app.use('/activity-search', stepsRoutes);
+
 app.use('/carbon', carbonRoutes);
 
 // MongoDB connection URI (replace with your own)
