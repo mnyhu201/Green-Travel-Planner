@@ -1,12 +1,11 @@
 // app.js
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose')
+
 const calorieRoutes = require('./routes/calorieRoutes');
 const weatherRoutes = require('./routes/weatherRoutes');
-const carbonRoutes = require('./routes/carbonRoutes')
-
-
-
+const stepsRoutes = require('./routes/stepsRoutes');
 
 const app = express();
 
@@ -19,11 +18,10 @@ app.use(express.json());
 app.use('/calculate-calories', calorieRoutes);
 // get seven day weather forcast
 app.use('/weather', weatherRoutes);
-// calculate the carbon emissions
-app.use('/carbon', carbonRoutes)
 
 // MongoDB connection URI (replace with your own)
 const MONGO_URI = "mongodb+srv://xinyangxu2023:Xp12345@cluster1.nz97x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
+
 
 // Connect to MongoDB Atlas
 mongoose.connect(MONGO_URI, {
@@ -152,6 +150,5 @@ const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
 
 module.exports = app;
