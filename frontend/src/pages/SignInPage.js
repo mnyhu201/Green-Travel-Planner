@@ -10,6 +10,7 @@ const SignInPage = () => {
     const [password, setPassword] = useState('');
     const handleEmailChange = (e) => setEmail(e.target.value);
     const handlePasswordChange = (e) => setPassword(e.target.value);
+    const [idToken, setIdToken] = useState(null);  // State to store the Firebase ID token
 
 
     const handleSubmit = async (e) => {
@@ -27,13 +28,36 @@ const SignInPage = () => {
             const idToken = await userCredential.user.getIdToken();
             console.log('ID Token:', idToken);
       
+            setIdToken(idToken);
             // Send ID Token to the backend (optional, if you want to protect server-side routes)
             // You can redirect or handle post-login actions here
+            navigate('/');
       
           } catch (error) {
             console.error('Error logging in:', error.message);
           }
     };
+
+    {/*  for testing */}
+    // Function to access the protected route
+    // const accessProtectedRoute = async () => {
+    //     if (!idToken) {
+    //         console.error("No ID Token available. Please log in first.");
+    //         return;
+    //     }
+    //     try {
+    //         const response = await fetch("http://localhost:4000/protected", {
+    //             method: "GET",
+    //             headers: {
+    //                 Authorization: `Bearer ${idToken}`
+    //             }
+    //         });
+    //         const data = await response.json();
+    //         console.log("Protected route response:", data);
+    //     } catch (error) {
+    //         console.error("Error accessing protected route:", error);
+    //     }
+    // };
 
     return (
         <div className="register-container">
@@ -63,6 +87,10 @@ const SignInPage = () => {
 
             <button type="submit">Sign In</button>
         </form>
+        {/*  for testing */}
+        {/* <button onClick={accessProtectedRoute} disabled={!idToken}>
+            Access Protected Route
+        </button> */}
         </div>
     );
 };

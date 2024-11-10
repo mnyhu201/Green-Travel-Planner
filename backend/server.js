@@ -9,6 +9,7 @@ const app = express();
 
 // Middleware to parse JSON data
 app.use(express.json());
+app.use(cors());
 
 
 // Middleware to authenticate Firebase token
@@ -39,9 +40,11 @@ admin.initializeApp({
 });
 
 
-app.get('/protected', authenticateFirebaseToken, (req, res) => {
-  res.send(`Hello, ${req.user.email}!`);
-});
+// for testing 
+// app.get('/protected', authenticateFirebaseToken, (req, res) => {
+//   console.log('You have access to this route!', req.user);
+//   res.json({ message: 'You have access to this route!', user: req.user });
+// });
 
 // Home route
 app.get('/', (req, res) => {
