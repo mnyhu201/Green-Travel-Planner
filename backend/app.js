@@ -96,7 +96,7 @@ const userSchema = new mongoose.Schema({
 });
 
 // Remove a specific route by matching all route parameters
-app.put('/user/:email/remove-route', async (req, res) => {
+app.put('/user/:email/remove-trip', async (req, res) => {
     const { email } = req.params;
     const { start, end, mode, type } = req.body;
   
@@ -179,6 +179,32 @@ app.put('/user/:email/add-trip', async (req, res) => {
       res.status(500).json({ message: 'Server error' });
     }
   });
+
+
+    // Update the eco score
+    app.put('/user/:email/update-score', async (req, res) => {
+        const { email } = req.params;
+        const { change } = req.body; // Extract change in score from the request body
+    
+        try {
+            // Find the user by email
+            const user = await User.findOne({ email: email });
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+    
+            // Update the ecoPoints score
+            user.ecoPoints += change;
+    
+            // Save the updated user document
+            await user.save();
+    
+            res.status(200).json({ message: 'Eco score updated successfully', user });
+        } catch (error) {
+            console.error('Error updating eco score:', error);
+            res.status(500).json({ message: 'Server error' });
+        }
+    });
 
 // Get user profile by name
 app.get('/user/:email', async (req, res) => {

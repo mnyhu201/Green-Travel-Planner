@@ -9,6 +9,7 @@ import RegisterPage from './pages/RegisterPage';
 import RegisterSubmitPage from './pages/RegisterSubmitPage';
 import SignInPage from './pages/SignInPage';
 import ProfilePage from './pages/ProfilePage';
+import { locals } from '../../backend/app';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/registered" element={<RegisterSubmitPage />} />
             <Route path="/signin" element={<SignInPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile" element={<ProfilePage email={localStorage.getItem('email')} />} />
           </Routes>
     </>
       
