@@ -68,6 +68,7 @@ function ItineraryForm() {
   );
   const [travelModeDisplay, setTravelModeDisplay] = useState('');
   const [activities, setActivities] = useState(INITIAL_ACTIVITIES);
+  const [selectedActivities, setSelectedActivities] = useState([]);
 
   // calculate credits
   const [credit, setCredit] = useState(0);
@@ -153,6 +154,7 @@ function ItineraryForm() {
         }
       );
     }
+    setSelectedActivities([]);
   };
 
   // Send route information to the backend
@@ -283,8 +285,9 @@ function ItineraryForm() {
                 carbon={routeDisplay.totalEmissions}
                 method={travelModeDisplay}
                 credits={credit}
+                routeInfo={routeInfo}
               />
-              <ActivityCarousel activities={activities} routeInfo={routeInfo}/>
+              <ActivityCarousel travel_mode={travelMode} activities={activities} routeInfo={routeInfo} selectedActivities={selectedActivities} setSelectedActivities={setSelectedActivities}/>
             </>
           )}
         </div>

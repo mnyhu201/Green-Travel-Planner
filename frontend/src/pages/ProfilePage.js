@@ -14,6 +14,7 @@ const ProfilePage = ({ email }) => {
                 setUserData(response.data);
             } catch (err) {
                 setError('Error fetching user data');
+                console.log(err)
             } finally {
                 setLoading(false);
             }

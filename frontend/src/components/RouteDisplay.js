@@ -9,7 +9,7 @@ import './RouteDisplay.css'; // Importing the new CSS file
 import { useState } from 'react';
 
 
-const RouteDisplay = ({ method, distance, calories, carbon, time, colors, credits }) => {
+const RouteDisplay = ({ method, distance, calories, carbon, time, colors, credits, routeInfo }) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [completionDisabled, setCompletionDisabled] = useState(false);
 
@@ -18,6 +18,8 @@ const RouteDisplay = ({ method, distance, calories, carbon, time, colors, credit
     setIsCompleted(!isCompleted);
     increaseCredit();
     setCompletionDisabled(true);
+    const input = {start: routeInfo.origin, end: routeInfo.destination, type: 'completed', mode: method}
+    axios.put(`http://localhost:4000/user/${localStorage.getItem('email')}/add-trip`, input)
   };
 
   // State to manage whether the bookmark is solid or regular
@@ -25,6 +27,8 @@ const RouteDisplay = ({ method, distance, calories, carbon, time, colors, credit
   // Toggle the bookmark state
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
+    const input = {start: routeInfo.origin, end: routeInfo.destination, type: 'saved', mode: method}
+    axios.put(`http://localhost:4000/user/${localStorage.getItem('email')}/add-trip`, input)
   };
 
   // submit post request to backend to increment / decrement credits

@@ -3,6 +3,7 @@ nav {
   background-color: #2a9d8f;
   color: #fff;
   padding: 1rem;
+  z-index: 10000;
 }
 
 ul {
