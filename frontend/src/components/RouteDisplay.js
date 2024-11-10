@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoePrints } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark as solidBookmark } from '@fortawesome/free-solid-svg-icons';
@@ -8,12 +9,15 @@ import './RouteDisplay.css'; // Importing the new CSS file
 import { useState } from 'react';
 
 
-const RouteDisplay = ({ method, distance, calories, carbon, time, colors }) => {
+const RouteDisplay = ({ method, distance, calories, carbon, time, colors, credits }) => {
   const [isCompleted, setIsCompleted] = useState(false);
+  const [completionDisabled, setCompletionDisabled] = useState(false);
 
   // Toggle the "completed" state
-  const toggleCompleted = () => {
+  const toggleCompleted = async () => {
     setIsCompleted(!isCompleted);
+    increaseCredit();
+    setCompletionDisabled(true);
   };
 
   // State to manage whether the bookmark is solid or regular
@@ -22,6 +26,27 @@ const RouteDisplay = ({ method, distance, calories, carbon, time, colors }) => {
   const toggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
   };
+
+  // submit post request to backend to increment / decrement credits
+  // Define the function to fetch user data
+  const increaseCredit = async () => {
+    const email = localStorage.getItem('email');    
+    console.log(localStorage);
+    if (!email) {
+      return;
+    }
+
+    try {
+      const response = await axios.put(`http://localhost:4000/user/${email}/update-score`, {
+        change: credits,  // Replace `newScore` with the actual data you want to send
+      });
+      console.log(`increased by ${credits}`);
+        } catch (err) {
+          console.log(err);
+    } finally {
+    }
+  };
+  
 
   return (
     <div className="route-container">
@@ -38,8 +63,9 @@ const RouteDisplay = ({ method, distance, calories, carbon, time, colors }) => {
           <button
             className={`complete-button ${isCompleted ? 'completed' : 'incomplete'}`}
             onClick={toggleCompleted}
+            disabled={completionDisabled}
           >
-            {isCompleted ? 'Completed' : 'Mark as Completed'}
+            {isCompleted ? 'Completed' : `Mark as Completed (${credits} carbon credits)`}
           </button>
 
           <FontAwesomeIcon 

@@ -69,6 +69,9 @@ function ItineraryForm() {
   const [travelModeDisplay, setTravelModeDisplay] = useState('');
   const [activities, setActivities] = useState(INITIAL_ACTIVITIES);
 
+  // calculate credits
+  const [credit, setCredit] = useState(0);
+
   // Refs for Autocomplete inputs
   const originRef = useRef();
   const destinationRef = useRef();
@@ -168,8 +171,16 @@ function ItineraryForm() {
           totalEmissions: data.totalEmissions,
           totalTime: data.totalTime,
         });
+
         setDisplayMessage('');
         setTravelModeDisplay(travelMode);
+        if (data.totalCalories == 0) {
+          setCredit(-1 * data.totalTime);
+        }
+
+        else {
+          setCredit(data.totalTime);
+        }
       })
       .catch((error) => {
         console.error('Error sending route data to backend:', error);
@@ -264,6 +275,7 @@ function ItineraryForm() {
                 colors={routeDisplay.footPrintColor}
                 carbon={routeDisplay.totalEmissions}
                 method={travelModeDisplay}
+                credits={credit}
               />
               <ActivityCarousel activities={activities} />
             </>
