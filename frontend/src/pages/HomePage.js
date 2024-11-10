@@ -1,7 +1,7 @@
 import React, { useEffect, useState }  from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './HomePage.css'
+import './HomePage.css';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, CategoryScale, LinearScale, BarElement } from 'chart.js';
 
@@ -65,12 +65,15 @@ const HomePage = () => {
   return (
     <div className="home-container">
       <div className="header">
-        <h1>Welcome to Green Travel Planner</h1>
+        <h1>Welcome to Eco Plan-It</h1>
+        <p>Your journey towards sustainable travel starts here.</p>
       </div>
       
       <div className="main-content">
         <div className="left-section">
-          <p>Plan your eco-friendly travels with ease.</p>
+          <h2>Plan Your Eco-Friendly Adventures</h2>
+          <p>Embark on a journey towards a greener future with Eco Plan-It. Plan your eco-friendly travels effortlessly and earn EcoPoints along the way!</p>
+          <p>Discover sustainable routes, track your progress, and compete with fellow eco-travelers.</p>
           <Link to="/itinerary" className="get-started-btn">Get Started</Link>
         </div>
 
@@ -78,9 +81,9 @@ const HomePage = () => {
           {ecopoints !== null ? (
             <>
               <div className="user-info">
-                <h2>Your Info</h2>
-                <p><strong>Your EcoPoints:</strong> {ecopoints}</p>
-                <p><strong>Completed Routes:</strong> {completedroutes}</p>
+                <h2>Your Dashboard</h2>
+                <p><strong>EcoPoints Earned:</strong> {ecopoints}</p>
+                <p><strong>Routes Completed:</strong> {completedroutes}</p>
                 <p><strong>Your Ranking:</strong> {ranking}</p>
               </div>
 
@@ -114,7 +117,6 @@ const HomePage = () => {
       </div>
     </div>
   );
-
 };
 
 export default HomePage;
