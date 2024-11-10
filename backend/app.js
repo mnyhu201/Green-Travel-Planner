@@ -236,6 +236,58 @@ app.post('/register', async (req, res) => {
 });
 
 
+//test only
+app.get('/users', async (req, res) => {
+    try {
+        // Retrieve all users from the User model
+        const users = await User.find(); // Use await to handle asynchronous operation
+        res.status(200).json(users);     // Send the user data as JSON with a 200 OK status
+    } catch (error) {
+        console.error(error);            // Log the error to the console
+        res.status(500).json({ message: 'Server error. Unable to fetch users.' }); // Send a 500 error response
+    }
+});
+
+
+app.get('/pointsroutes/:email', async (req, res) => {
+    const { email } = req.params; // Access the email from query parameters
+    console.log("quering ecopoints for email: ", email)
+
+    try {
+        // Find the user by email
+        const user = await User.findOne({ email }, 'ecoPoints completedRoutes'); // Only select the 'ecopoints' field
+        
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Respond with the user's ecopoints
+        console.log(user);
+        res.status(200).json(user);
+    } catch (error) {
+        console.error(error); // Log any error to the console
+        res.status(500).json({ message: 'Server error. Unable to fetch ecopoints.' });
+    }
+});
+
+app.get('/pointsroutes', async (req, res) => {
+    try {
+        // Find all users and only select the 'ecoPoints' and 'completedRoutes' fields
+        const users = await User.find({}, 'email ecoPoints completedRoutes')
+            .sort({ ecoPoints: -1});
+
+        // Send the data in the response
+        res.json(users);
+    } catch (error) {
+        console.error('Error fetching points and routes:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+
+
+
+
 const User = mongoose.model('User', userSchema);  // Create User model
 
 module.exports = app;
