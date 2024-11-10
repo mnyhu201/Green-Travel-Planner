@@ -1,0 +1,99 @@
+/* RegisterPage.css */
+
+.register-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: url('../assets/unsplash-image-PBSOfRrIdK8.jpg');
+    background-size: cover;
+  }
+  
+  .register-container {
+    background-color: #ffffffed;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .register-title {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #333333;
+  }
+  
+  .register-form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555555;
+    font-weight: 500;
+  }
+  
+  .form-input,
+  .form-multiselect input[type='text'] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-input:focus,
+  .form-multiselect input[type='text']:focus {
+    border-color: #2a9d8f;
+  }
+  
+  .register-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2a9d8f;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register-button:hover {
+    background-color: #21867a;
+  }
+  
+  /* Style the Multiselect component */
+  .form-multiselect .chip {
+    background-color: #2a9d8f;
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 5px 10px;
+    margin-right: 5px;
+  }
+  
+  .form-multiselect .optionListContainer {
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  
+  .form-multiselect .highlightOption {
+    background-color: #e0f2f1;
+  }
+  
+  .form-multiselect .option {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .form-multiselect .option:hover {
+    background-color: #21867a;
+    color: black;
+  }
+  
