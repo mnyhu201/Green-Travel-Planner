@@ -34,7 +34,15 @@ const SignInPage = () => {
             navigate('/');
       
           } catch (error) {
-            console.error('Error logging in:', error.message);
+            if (error.code === 'auth/user-not-found') {
+                alert('No account found with this email. Please check your email or sign up.');
+            } else if (error.code === 'auth/wrong-password') {
+                alert('Incorrect password. Please try again.');
+            } else if (error.code === 'auth/invalid-credential') {
+                alert('Invalid credentials. Please make sure your email and password are correct.');
+            } else {
+                console.error('Error logging in:', error.message);
+            }
           }
     };
 
