@@ -1,0 +1,95 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.header {
+    text-align: center;
+    width: 100%;
+}
+
+.header h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.left-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center;     /* Center horizontally */
+    text-align: center;
+    padding: 20px;
+}
+
+.left-section p {
+    font-size: 1.5rem; /* Reduced font size to balance the layout */
+    font-weight: bold; /* Bold text */
+    margin-bottom: 20px; /* Space between the text and the button */
+}
+
+.right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%; /* Ensure it takes full height */
+    padding: 20px;
+}
+
+.get-started-btn {
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+.get-started-btn:hover {
+    background-color: #45a049;
+}
+
+.user-info {
+    text-align: center;
+    height: 30%; /* Reduced height to make the info section smaller */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align at the top */
+    align-items: center;
+    font-size: 0.9rem; /* Smaller font size for compact look */
+    padding: 10px;
+}
+
+.user-info h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.user-info p {
+    font-size: 1rem;
+    margin: 5px 0;
+}
+
+.chart {
+    margin-top: 20px;
+    height: 60vh; /* Increased height for the chart to make it bigger */
+    width: 100%;
+}
+
+.chart canvas {
+    max-height: 100%;
+    width: 100%;
+}
+
+
