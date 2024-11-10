@@ -95,19 +95,62 @@ const userSchema = new mongoose.Schema({
     completedRoutes: [routeSchema] // Array of Route schema
 });
 
+// Remove a specific route by matching all route parameters
+app.put('/user/:email/remove-trip', async (req, res) => {
+    const { email } = req.params;
+    const { start, end, mode, type } = req.body;
+  
+    if (!['saved', 'completed'].includes(type)) {
+        return res.status(400).json({ message: 'Invalid route type. Use "saved" or "completed".' });
+    }
+  
+    try {
+        // Find the user by email
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+  
+        // Remove the route from the appropriate field (savedRoutes or completedRoutes)
+        if (type === 'saved') {
+            user.savedRoutes = user.savedRoutes.filter(route =>
+                route.start !== start ||
+                route.end !== end ||
+                route.mode !== mode
+            );
+        } else if (type === 'completed') {
+            user.completedRoutes = user.completedRoutes.filter(route =>
+                route.start !== start ||
+                route.end !== end ||
+                route.mode !== mode
+            );
+        }
+  
+        // Save the updated user document
+        await user.save();
+  
+        res.status(200).json({ message: `Route removed successfully from ${type} routes`, user });
+    } catch (error) {
+        console.error('Error removing route:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 
 
 // Add a saved or completed trip for an existing user
-app.post('/user/add-trip', async (req, res) => {
-    const { name, start, end, type, mode } = req.body; // Extract trip details from the request body
+// Update user with new trip by email
+app.put('/user/:email/add-trip', async (req, res) => {
+    const { email } = req.params;
+    const { start, end, type, mode } = req.body; // Extract trip details from the request body
   
     if (!['saved', 'completed'].includes(type)) {
       return res.status(400).json({ message: 'Invalid trip type. Use "saved" or "completed".' });
     }
   
     try {
-      // Find the user by userId
-      const user = await User.findOne({ name });
+      // Find the user by email
+      const user = await User.findOne({ email: email });
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
@@ -136,6 +179,47 @@ app.post('/user/add-trip', async (req, res) => {
       res.status(500).json({ message: 'Server error' });
     }
   });
+
+
+    // Update the eco score
+    app.put('/user/:email/update-score', async (req, res) => {
+        const { email } = req.params;
+        const { change } = req.body; // Extract change in score from the request body
+    
+        try {
+            // Find the user by email
+            const user = await User.findOne({ email: email });
+            if (!user) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+    
+            // Update the ecoPoints score
+            user.ecoPoints += change;
+    
+            // Save the updated user document
+            await user.save();
+    
+            res.status(200).json({ message: 'Eco score updated successfully', user });
+        } catch (error) {
+            console.error('Error updating eco score:', error);
+            res.status(500).json({ message: 'Server error' });
+        }
+    });
+
+// Get user profile by name
+app.get('/user/:email', async (req, res) => {
+    const { email } = req.params;
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json(user);
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
 
 // create a new user
 app.post('/register', async (req, res) => {

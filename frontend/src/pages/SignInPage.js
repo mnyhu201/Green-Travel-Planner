@@ -23,6 +23,7 @@ const SignInPage = () => {
             console.log('ID Token:', idToken);
 
             localStorage.setItem('idToken', idToken);
+            localStorage.setItem('email', email);
       
 
             setIdToken(idToken);
