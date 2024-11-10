@@ -1,5 +1,8 @@
 /* Navbar.css */
 nav {
+    position: sticky;
+    top: 0;
+    z-index : 2000;
     background-color: #2a9d8f;
     color: #fff;
     padding: 1rem;
@@ -17,14 +20,20 @@ nav {
     position: relative;
   }
   
-  a {
+  a,span {
     color: #fff;
     text-decoration: none;
     padding: 0.5rem 1rem;
     transition: background-color 0.3s;
   }
+
+  a:hover,span:hover {
+    background-color: #264653;
+  }
   
-  a:hover {
+
+
+  nav ul li span.hover{
     background-color: #264653;
   }
   
@@ -61,7 +70,7 @@ nav {
     text-align: center;
   }
   
-  .dropdown-menu li a:hover {
+  .dropdown-menu li a:hoverspan {
     background-color: #f0f0f0;
   }
   
@@ -116,6 +125,6 @@ nav {
   }
   
   button:hover {
-    background-color: #264653;
+    background-color: #9eb4be;
   }
   

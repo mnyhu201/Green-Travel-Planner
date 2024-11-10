@@ -1,0 +1,23 @@
+/* Registered.css */
+.registered-container {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .registered-container a {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #2a9d8f;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .registered-container a:hover {
+    text-decoration: underline;
+  }
+  

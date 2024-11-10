@@ -42,7 +42,7 @@ const RegisterPage = () => {
     }
     try {
       // Simulate saving formData to userProfile.json
-      const response = await fetch(DESTINATION, {
+      const response = await fetch('/userProfile.json', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,6 +56,10 @@ const RegisterPage = () => {
     } catch (error) {
       console.error('Error submitting form:', error);
     }
+    localStorage.removeItem('formData');
+    window.location.href = '/registered';
+    // Handle form submission logic here
+    console.log(formData);
   };
 
   return (
