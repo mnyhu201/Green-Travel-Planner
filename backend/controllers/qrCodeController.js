@@ -4,6 +4,8 @@ const { generateQRCodeForRoute } = require('../utils/qrCodeGenerator');
 
 // Controller function to handle QR code generation
 async function generateRouteQRCode(req, res) {
+
+  console.log(res.body);
   const {
     start_location,
     end_location,
