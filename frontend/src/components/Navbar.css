@@ -62,7 +62,7 @@ a:hover {
 }
 
 .dropdown-menu li a:hover {
-  background-color: #f0f0f0;
+  text-decoration: underline;
 }
 
 /* Prevent dropdown from going off the screen */

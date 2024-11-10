@@ -5,11 +5,12 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background-color: #f0f4f8;
+    background-image: url('../assets/unsplash-image-PBSOfRrIdK8.jpg');
+    background-size: cover;
 }
 
 .signin-container {
-    background-color: #ffffff;
+    background-color: #ffffffed;
     padding: 40px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
