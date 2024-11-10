@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import firebase from '../firebaseConfig';
+import { auth, signInWithEmailAndPassword } from '../firebaseConfig';
 
 
 const SignInPage = () => {
@@ -15,9 +15,12 @@ const SignInPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // handle submit tbd
+        console.log("email: ", email);
+        console.log("password: ", password);
         try {
             // Authenticate with Firebase using email and password
-            const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+            // const userCredential = await firebase.signInWithEmailAndPassword(email, password);
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log('Logged in as:', userCredential.user.email);
       
             // After successful login, you can get the ID Token for backend verification
