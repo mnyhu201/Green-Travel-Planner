@@ -1,0 +1,59 @@
+/* RouteDisplay.css */
+
+.route-container {
+  border: 2px solid #2a9d8f; /* Default border color */
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.route-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.route-method {
+  display: flex;
+  align-items: center;
+}
+
+.route-icon {
+  margin-left: 8px;
+  transform: rotate(-90deg); /* Rotate the icon 90 degrees counterclockwise */
+}
+
+.route-buttons {
+  display: flex;
+}
+
+.complete-button {
+  padding: 0.5rem 1rem;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-button {
+  height: 40px;
+  margin-left: 10px;
+}
+
+.complete-button .incomplete {
+  background-color: #264653;
+}
+
+.complete-button .completed {
+  background-color: #27af47;
+}
+
+.route-details {
+  margin-top: 1rem;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}

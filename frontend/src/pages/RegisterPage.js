@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 // import './RegisterPage.css';
 import Multiselect from 'multiselect-react-dropdown';
+import { auth, createUserWithEmailAndPassword } from '../firebaseConfig';
 
 const RegisterPage = () => {
   const interestList = [
@@ -41,23 +42,34 @@ const RegisterPage = () => {
       return;
     }
     try {
-      // Simulate saving formData to userProfile.json
-      const response = await fetch('/userProfile.json', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      if (!response.ok) {
-        throw new Error('Failed to save user profile data');
-      }
+
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password
+      );
+      // // Simulate saving formData to userProfile.json
+      // const response = await fetch('/userProfile.json', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(formData),
+      // });
+      // if (!response.ok) {
+      //   throw new Error('Failed to save user profile data');
+      // }
       console.log('Form submitted:', formData);
+      window.location.href = '/registered';
     } catch (error) {
-      console.error('Error submitting form:', error);
+      if (error.code === 'auth/email-already-in-use') {
+        alert('This email is already registered. Please use a different email.');
+      } else {
+        console.error('Error submitting form:', error);
+      }
     }
     localStorage.removeItem('formData');
-    window.location.href = '/registered';
+    // window.location.href = '/registered';
     // Handle form submission logic here
     console.log(formData);
   };

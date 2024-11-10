@@ -6,6 +6,8 @@ import {
   useJsApiLoader,
 } from '@react-google-maps/api';
 import './ItineraryForm.css';
+import RouteDisplay from './RouteDisplay';
+
 
 const API_KEY = 'AIzaSyB2-KS_YHH2UJQPsFiRmXp2i5klSKI2La0' // Replace with your API key
 const center = {
@@ -145,11 +147,14 @@ function ItineraryForm() {
         </div>
         <div className="recommendations">
           The Route Recommendations will Appear here.
+          <RouteDisplay distance={10} time={100} calories={120} colors={"#F23"} method={"bus"}/>
         </div>
       </div>
     </div>
   );
+  // distance, time, calories, carbon, type
 }
+
 
 export default ItineraryForm;
 
