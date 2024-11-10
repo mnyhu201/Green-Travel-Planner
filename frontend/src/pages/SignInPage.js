@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import firebase from '../firebaseConfig';
 
 
 const SignInPage = () => {
@@ -14,6 +15,21 @@ const SignInPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // handle submit tbd
+        try {
+            // Authenticate with Firebase using email and password
+            const userCredential = await firebase.auth().signInWithEmailAndPassword(email, password);
+            console.log('Logged in as:', userCredential.user.email);
+      
+            // After successful login, you can get the ID Token for backend verification
+            const idToken = await userCredential.user.getIdToken();
+            console.log('ID Token:', idToken);
+      
+            // Send ID Token to the backend (optional, if you want to protect server-side routes)
+            // You can redirect or handle post-login actions here
+      
+          } catch (error) {
+            console.error('Error logging in:', error.message);
+          }
     };
 
     return (
