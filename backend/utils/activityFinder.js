@@ -11,12 +11,12 @@ function selectKeySteps(steps) {
 
   if (totalSteps <= maxSteps) {
     steps.forEach(step => {
-      selectedAddresses.push(step.start_address);
+      selectedAddresses.push(step.start_location);
     });
   } else {
     for (let i = 1; i <= maxSteps; i++) {
       const position = Math.round((i * totalSteps) / (maxSteps + 1)) - 1;
-      selectedAddresses.push(steps[position].start_address);
+      selectedAddresses.push(steps[position].start_location);
     }
   }
 
@@ -46,7 +46,7 @@ function deg2rad(deg) {
 // Function to find the closest eco-friendly activity within a specified distance
 async function findClosestActivity(latitude, longitude) {
   const apiKey = 'AIzaSyB2-KS_YHH2UJQPsFiRmXp2i5klSKI2La0';
-  const keyword = 'eco-friendly sustainable organic';
+  const keyword = 'green';
   const url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json';
 
   try {
@@ -164,7 +164,7 @@ async function getPlaceDetails(placeId) {
         }
     
         // Get opening hours for the current day and open_now status
-        let todaysHours = 'No opening hours available';
+        let todaysHours = 'Unavaible';
         let isOpenNow = 'Unknown';
         if (result.opening_hours) {
           if (result.opening_hours.weekday_text) {

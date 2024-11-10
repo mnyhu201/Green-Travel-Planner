@@ -5,7 +5,7 @@ function calculateCaloriesHelper(weight, travelType, distance) {
   let MET;
   
   // MET values for different activities (biking and walking)
-  if (travelType === 'biking') {
+  if (travelType === 'bicycling') {
     MET = 8.0; // moderate biking (12-14 mph)
   } else if (travelType === 'walking') {
     MET = 4.3; // brisk walking (4 mph)

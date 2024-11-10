@@ -13,22 +13,34 @@ async function getEcoFriendlyActivities(req, res) {
     const keyAddresses = selectKeySteps(steps);
 
     const activitiesPromises = keyAddresses.map(async address => {
-      const { latitude, longitude } = address;
-      const activity = await findClosestActivity(latitude, longitude);
+      const { lat, lng } = address;
+      const activity = await findClosestActivity(lat, lng);
       if (activity) {
         return activity;
       } else {
         return {
           message: 'No suitable eco-friendly activity found within 1000 meters',
-          latitude,
-          longitude,
+          lat,
+          lng,
         };
       }
     });
 
     const ecoFriendlyActivities = await Promise.all(activitiesPromises);
 
-    res.status(200).json({ ecoFriendlyActivities });
+    // Filter to remove duplicates and objects without a `name` attribute
+    const uniqueEcoFriendlyActivities = ecoFriendlyActivities
+        .filter(activity => activity.name) // Keep only objects with a `name` attribute
+        .reduce((acc, current) => {
+            const isDuplicate = acc.some(activity => activity.name === current.name);
+            if (!isDuplicate) {
+                acc.push(current);
+            }
+            return acc;
+        }, []);
+
+
+    res.status(200).json({ uniqueEcoFriendlyActivities });
   } catch (error) {
     console.error('Error in getEcoFriendlyActivities:', error.message);
     res.status(500).json({ error: 'Failed to retrieve eco-friendly activities' });

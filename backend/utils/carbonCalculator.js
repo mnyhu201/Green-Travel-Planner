@@ -32,7 +32,7 @@ function calculateTotalCarbonEmissions(travelData, weight = 160) {
     totalTime += segmentTime;
 
     // Calculate calories for WALKING
-    if (travel_mode === 'WALKING' || travel_mode === 'BIKING') {
+    if (travel_mode === 'WALKING' || travel_mode === 'BICYCLING') {
       const travelType = travel_mode.toLowerCase();
       totalCalories += calculateCaloriesHelper(weight, travelType, segmentDistance);
     }
