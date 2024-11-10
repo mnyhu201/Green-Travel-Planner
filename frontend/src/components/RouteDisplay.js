@@ -72,12 +72,12 @@ const RouteDisplay = ({ method, distance, calories, carbon, time, colors, credit
             {isCompleted ? 'Completed' : `Mark as Completed (${credits} carbon credits)`}
           </button>
 
-          <FontAwesomeIcon 
+          {/* <FontAwesomeIcon 
             className='save-button'
             icon={isBookmarked ? solidBookmark : regularBookmark} 
             onClick={toggleBookmark}
             style={{ cursor: 'pointer', marginLeft: '8px' }}
-          />
+          /> */}
         </div>
       </div>
 

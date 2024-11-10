@@ -59,7 +59,7 @@ const ActivityDisplay = ({ phone, imageLinks, name, hours, rating, address, desc
         </div>
         <div className="activity-right">
             <h3 className="activity-name">{name}</h3>
-            <button onClick={selectActivity}>{(!selectedActivities.includes(name)) ? "Add to itinerary" : "Remove from itinerary" }</button>
+            <button className='add-button' onClick={selectActivity}>{(!selectedActivities.includes(name)) ? "Add to itinerary" : "Remove from itinerary" }</button>
             <FontAwesomeIcon 
               className='save-button'
               icon={isBookmarked ? solidBookmark : regularBookmark} 

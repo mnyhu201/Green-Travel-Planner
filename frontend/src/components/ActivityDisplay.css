@@ -36,6 +36,10 @@
     object-fit: cover;
     border-radius: 8px;
   }
+
+  .save-button{
+    padding-top: 20px;
+  }
   
   .carousel-button {
     position: absolute;
