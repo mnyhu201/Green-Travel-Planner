@@ -7,6 +7,8 @@ import {
 } from '@react-google-maps/api';
 import './ItineraryForm.css';
 import RouteDisplay from './RouteDisplay';
+import ActivityDisplay from './ActivityDisplay';
+import ActivityCarousel from './ActivityCarousel';
 
 const API_KEY = 'AIzaSyB2-KS_YHH2UJQPsFiRmXp2i5klSKI2La0' // Replace with your API key
 const center = {
@@ -127,6 +129,46 @@ function ItineraryForm() {
     }
   };
 
+  const activities = [
+    {
+      phone: '123-456-7890',
+      imageLinks: [
+        'https://via.placeholder.com/150',
+        'https://via.placeholder.com/200',
+        'https://via.placeholder.com/250',
+      ],
+      name: 'Adventure Park',
+      hours: '9:00 AM - 8:00 PM',
+      rating: '4.5/5',
+      address: '123 Adventure Lane, Fun City, FC 12345',
+      description: 'A fun place to enjoy outdoor activities with your family and friends!',
+    },
+    {
+      phone: '987-654-3210',
+      imageLinks: [
+        'https://via.placeholder.com/300',
+        'https://via.placeholder.com/350',
+      ],
+      name: 'Cultural Museum',
+      hours: '10:00 AM - 5:00 PM',
+      rating: '4.8/5',
+      address: '456 History Rd, Culture Town, CT 45678',
+      description: 'Explore the rich cultural heritage of our community at this wonderful museum!',
+    },
+    {
+      phone: '111-222-3333',
+      imageLinks: [
+        'https://via.placeholder.com/400',
+        'https://via.placeholder.com/450',
+      ],
+      name: 'Nature Walk',
+      hours: '6:00 AM - 6:00 PM',
+      rating: '4.7/5',
+      address: '789 Greenway Blvd, Nature City, NC 78901',
+      description: 'Enjoy a serene walk through beautiful nature trails and experience the beauty of local flora and fauna.',
+    },
+  ];
+
   return (
     <div>
       <div className="form-container">
@@ -169,8 +211,16 @@ function ItineraryForm() {
         <div className="recommendations">
           {displayMessage}
           {displayMessage === "" && <RouteDisplay distance={routeDisplay.totalDistance} time={routeDisplay.totalTime} calories={routeDisplay.totalCalories} colors={routeDisplay.footPrintColor} carbon={routeDisplay.totalEmissions} method={travelModeDisplay} />}
+
+          
+          <ActivityCarousel activities={activities} />
+          
+
         </div>
+        
       </div>
+      
+        
     </div>
   );
 }
