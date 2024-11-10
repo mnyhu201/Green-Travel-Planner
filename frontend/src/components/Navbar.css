@@ -20,20 +20,14 @@ nav {
     position: relative;
   }
   
-  a,span {
+  a {
     color: #fff;
     text-decoration: none;
     padding: 0.5rem 1rem;
     transition: background-color 0.3s;
   }
-
-  a:hover,span:hover {
-    background-color: #264653;
-  }
   
-
-
-  nav ul li span.hover{
+  a:hover,span.hover {
     background-color: #264653;
   }
   
@@ -70,7 +64,7 @@ nav {
     text-align: center;
   }
   
-  .dropdown-menu li a:hoverspan {
+  .dropdown-menu li a:hover {
     background-color: #f0f0f0;
   }
   
@@ -125,6 +119,6 @@ nav {
   }
   
   button:hover {
-    background-color: #9eb4be;
+    background-color: #264653;
   }
   

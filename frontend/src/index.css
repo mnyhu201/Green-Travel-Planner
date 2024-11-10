@@ -48,9 +48,9 @@ body {
     transition: background-color 0.3s;
   }
   
-  form button:hover {
+  /* form button:hover {
     background-color: #264653;
-  }
+  } */
   
   /* Page header styling */
   h1, h2 {

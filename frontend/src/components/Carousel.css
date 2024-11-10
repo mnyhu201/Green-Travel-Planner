@@ -1,0 +1,54 @@
+.carousel {
+    position: relative;
+    max-width: 600px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .carousel-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+  }
+  
+  .carousel-slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+
+  
+  
+
+  /* Carousel.css */
+  
+  .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent; /* Keeps the button background minimalistic */
+    border: none; /* Removes the button border */
+    color: #fff; /* Default arrow color */
+    font-size: 1.5rem; /* Adjusted to make it more minimalistic */
+    cursor: pointer;
+    z-index: 1000;
+    transition: color 0.3s ease-in-out; /* Add transition for smooth hover effect */
+  }
+  
+  .carousel-button-left {
+    left: 10px;
+  }
+  
+  .carousel-button-right {
+    right: 10px;
+  }
+  
+  /* Change the color on hover */
+  .carousel-button:hover {
+    background-color: transparent;
+    color: #2a9;
+  }

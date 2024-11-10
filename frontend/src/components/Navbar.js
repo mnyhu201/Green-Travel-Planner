@@ -21,7 +21,7 @@ const Navbar = () => {
           onMouseEnter={toggleDropdown}
           onMouseLeave={toggleDropdown}
         >
-          <span>Accounts</span>
+          <span className='accounts'>Accounts</span>
           {showDropdown && (
             <ul className="dropdown-menu">
               <li><Link to="/signin">Sign In</Link></li>
