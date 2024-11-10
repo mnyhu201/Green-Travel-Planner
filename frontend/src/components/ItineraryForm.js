@@ -8,7 +8,6 @@ import {
 import './ItineraryForm.css';
 import RouteDisplay from './RouteDisplay';
 
-
 const API_KEY = 'AIzaSyB2-KS_YHH2UJQPsFiRmXp2i5klSKI2La0' // Replace with your API key
 const center = {
   lat: 34.05, // Default to LA
@@ -23,15 +22,10 @@ function ItineraryForm() {
   const originRef = useRef();
   const destinationRef = useRef();
 
-
-  // <RouteDisplay distance={10} time={100} calories={120} colors={"#F23"} method={"bus"}/>
-
-  // modify the route display
   const [routeDisplay, setRouteDisplay] = useState({});
   const [displayMessage, setDisplayMessage] = useState("The Route Recommendations will Appear here.");
   const [travelModeDisplay, setTravelModeDisplay] = useState('');
 
-  // Use the useJsApiLoader hook
   const { isLoaded, loadError } = useJsApiLoader({
     googleMapsApiKey: API_KEY,
     libraries: ['places'],
@@ -78,6 +72,14 @@ function ItineraryForm() {
         instruction: step.instructions,
         distance: step.distance.text,
         duration: step.duration.text,
+        start_location: {
+          lat: step.start_location.lat(),
+          lng: step.start_location.lng(),
+        },
+        end_location: {
+          lat: step.end_location.lat(),
+          lng: step.end_location.lng(),
+        },
         transit_details: step.transit
           ? {
               line_name: step.transit.line.name,
@@ -102,21 +104,17 @@ function ItineraryForm() {
       .then((data) => {
         console.log('Successfully sent route data to the backend:', data);
 
-        setRouteDisplay(
-          {
-            footPrintColor:data.footPrintColor,
-            totalCalories:data.totalCalories,
-            totalDistance:data.totalDistance,
-            totalEmissions:data.totalEmissions,
-            totalTime:data.totalTime
-          }
-        )
+        setRouteDisplay({
+          footPrintColor: data.footPrintColor,
+          totalCalories: data.totalCalories,
+          totalDistance: data.totalDistance,
+          totalEmissions: data.totalEmissions,
+          totalTime: data.totalTime,
+        });
 
         setDisplayMessage("");
-
         setTravelModeDisplay(travelMode);
       })
-
       .catch((error) => {
         console.error('Error sending route data to backend:', error);
       });
@@ -170,14 +168,11 @@ function ItineraryForm() {
         </div>
         <div className="recommendations">
           {displayMessage}
-          {displayMessage === "" && <RouteDisplay distance={routeDisplay.totalDistance} time={routeDisplay.totalTime} calories={routeDisplay.totalCalories} colors={routeDisplay.footPrintColor} carbon = {routeDisplay.totalEmissions} method={travelModeDisplay}/>}
+          {displayMessage === "" && <RouteDisplay distance={routeDisplay.totalDistance} time={routeDisplay.totalTime} calories={routeDisplay.totalCalories} colors={routeDisplay.footPrintColor} carbon={routeDisplay.totalEmissions} method={travelModeDisplay} />}
         </div>
       </div>
     </div>
   );
-  // distance, time, calories, carbon, type
 }
 
-
 export default ItineraryForm;
-
