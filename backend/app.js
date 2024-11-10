@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 
 const calorieRoutes = require('./routes/calorieRoutes');
 const weatherRoutes = require('./routes/weatherRoutes');
+const carbonRoutes = require('./routes/carbonRoutes');
 // const stepsRoutes = require('./routes/stepsRoutes');
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/calculate-calories', calorieRoutes);
 // get seven day weather forcast
 app.use('/weather', weatherRoutes);
+app.use('/carbon', carbonRoutes);
 
 // MongoDB connection URI (replace with your own)
 const MONGO_URI = "mongodb+srv://xinyangxu2023:Xp12345@cluster1.nz97x.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1";
