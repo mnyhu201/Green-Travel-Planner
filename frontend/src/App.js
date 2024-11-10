@@ -9,7 +9,7 @@ import RegisterPage from './pages/RegisterPage';
 import RegisterSubmitPage from './pages/RegisterSubmitPage';
 import SignInPage from './pages/SignInPage';
 import ProfilePage from './pages/ProfilePage';
-import { locals } from '../../backend/app';
+
 
 function App() {
   return (
